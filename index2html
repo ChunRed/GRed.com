@@ -116,7 +116,6 @@
 					
 					light="type: directional;
 						castShadow: true;
-						
 						shadowCameraFar: 100;
 						intensity: 1;
 						shadowCameraVisible: false;
