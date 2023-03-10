@@ -103,7 +103,20 @@
 			
             <a-sky color="black"></a-sky>
 
-            
+            <a-entity 
+					id="light"
+					
+					light="type: directional;
+						castShadow: true;
+						shadowCameraFar: 100;
+						intensity: 1;
+						shadowCameraVisible: false;
+						shadowBias: -0.001;
+						shadowMapHeight:19000; shadowMapWidth:19000;
+						shadowCameraLeft: -50; shadowCameraRight: 50;
+						shadowCameraBottom: -50; shadowCameraTop: 50;" 
+					position="3 6 6">
+			</a-entity>
 
 			<a-entity
 				id="center"
