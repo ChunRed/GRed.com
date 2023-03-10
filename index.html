@@ -46,10 +46,10 @@
                     
 
 
-                    x = (Math.random()-0.5);
-                    y = (Math.random()-0.5);
+                    x = (Math.random()-0.5)*2;
+                    y = (Math.random()-0.5)*2;
                     z = (Math.random()-0.5);
-                    cubes[i].setAttribute('scale','0.07 0.07 0.07');
+                    cubes[i].setAttribute('scale','0.09 0.09 0.09');
                     cubes[i].setAttribute('position', x.toString()+ ' '+y.toString()+ ' '+z.toString());
                     cubes[i].setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
                     
@@ -61,7 +61,7 @@
                     });
                     tex[i].setAttribute('scale','0.7 0.7 0.7');
                     tex[i].setAttribute('color', 'red');
-                    tex[i].setAttribute('position', x.toString()+ ' '+y.toString()+ ' '+(z-0.1).toString());
+                    tex[i].setAttribute('position', x.toString()+ ' '+(y+0.2).toString()+ ' '+(z).toString());
                     tex[i].setAttribute('rotation', '0 0 0');
                     
                     //Event
@@ -74,7 +74,7 @@
 
                     //mouse hover
                     cubes[i].addEventListener('mouseenter', function (evt) {
-                        Text.setAttribute('text','value', text_array[i]);
+                        //Text.setAttribute('text','value', text_array[i]);
                         //this.setAttribute('scale', '1.5 1.5 1.5');
                         this.setAttribute('material', 'color: rgb(255, 0, 0)');
                         this.setAttribute('animation', 'property: scale; from: 0.07, 0.07, 0.07; to: 0.1, 0.1, 0.1; loop: false; dur: 500');
@@ -104,8 +104,16 @@
             <a-sky color="black"></a-sky>
 
             <a-entity 
+                light="
+				type: ambient; 
+				castShadow: true;
+                intensity: 0.2;">
+			</a-entity>
+
+            <a-entity 
 					id="light"
 					
+                    
 					light="type: directional;
 						castShadow: true;
 						shadowCameraFar: 100;
