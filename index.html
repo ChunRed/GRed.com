@@ -47,11 +47,14 @@
                         receive: true,
                     });
                     cubes[i].setAttribute('id', 'box_'+i.toString());
-                    cubes[i].setAttribute('material', 'color', 'rgb(255, 255, 255)');
+                    cubes[i].setAttribute('material', 'color', 'rgb(150, 150, 255)');
                     cubes[i].setAttribute('src', 'https://cdn.glitch.global/9171c8b9-6b40-42db-8a06-008f51d40e80/%E7%A2%8E%E7%89%87.obj?v=1678363378653');
-                    cubes[i].setAttribute('scale','0.09 0.09 0.09');
+                    cubes[i].setAttribute('scale','0.1 0.1 0.1');
                     cubes[i].setAttribute('position', x.toString()+ ' '+y.toString()+ ' '+z.toString());
                     cubes[i].setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
+                    cubes[i].setAttribute('roughness','0');
+                    cubes[i].setAttribute('reflectivity','0.8');
+                    cubes[i].setAttribute('shininess','30');
                     
                     
                     //text
@@ -62,9 +65,24 @@
                     tex[i].setAttribute('scale','0.7 0.7 0.7');
                     tex[i].setAttribute('color', 'red');
                     tex[i].setAttribute('position', x.toString()+ ' '+(y+0.2).toString()+ ' '+(z).toString());
-                    let start = tex[i].getAttribute("position");
-                    let end = cubes[i].getAttribute("position");
-                    //tex[i].setAttribute('line', 'start: 0 -0.05 0; end: 0 -0.2 0; color: white');
+                    
+                    
+                    //child
+                    let child = [];
+                    for (let j=0; j<8; j++){
+                        let x = ((Math.random()-0.5)*8).toString();
+                        let y = ((Math.random()-0.5)*8).toString();
+                        let z = ((Math.random()-0.5)*4).toString();
+                        let sx = ((Math.random()-0.5)*0.5).toString();
+                        let sy = ((Math.random()-0.5)*0.5).toString();
+                        let sz = ((Math.random()-0.5)*0.5).toString();
+                        child[j] = document.createElement('a-box');
+                        child[j].setAttribute('position',x +' '+ y +' '+ z);
+                        child[j].setAttribute('scale',sx +' '+ sy +' '+ sz);
+                        child[j].setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
+                        child[j].setAttribute('color', 'rgb(200, 200, 255)');
+                        cubes[i].appendChild(child[j]);
+                    }
 
                     //Event
 
@@ -77,14 +95,14 @@
                     cubes[i].addEventListener('mouseenter', function (evt) {
                         //Text.setAttribute('text','value', text_array[i]);
                         //this.setAttribute('scale', '1.5 1.5 1.5');
-                        this.setAttribute('material', 'color: rgb(150, 150, 255)');
-                        this.setAttribute('animation', 'property: scale; from: 0.07, 0.07, 0.07; to: 0.2, 0.2, 0.2; loop: false; dur: 500');
+                        this.setAttribute('material', 'color: rgb(100, 100, 255)');
+                        this.setAttribute('animation', 'property: scale; from: 0.1, 0.1, 0.1; to: 0.2, 0.2, 0.2; loop: false; dur: 500');
                     })
 
                     cubes[i].addEventListener('mouseleave', function (evt) {
                         //Text.setAttribute('text','value', "--");
-                        this.setAttribute('scale', '0.07, 0.07, 0.07');
-                        this.setAttribute('material', 'color: rgb(255, 255, 255)');
+                        this.setAttribute('scale', '0.1, 0.1, 0.1');
+                        this.setAttribute('material', 'color: rgb(150, 150, 255)');
                         this.setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
                     })
                    
@@ -103,7 +121,7 @@
         <a-scene>
             <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
 			
-            <a-sky color="black"></a-sky>
+            <a-sky color="rgb(100,100,100)"></a-sky>
 
             <a-entity 
                 light="
