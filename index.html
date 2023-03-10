@@ -29,63 +29,65 @@
                 ];
                 let cubes = [];
                 let tex = [];
+
                 let size = 0.125, x, y, z;
                 let sceneEl = document.querySelector('#center');
                 let Text = document.querySelector('#text');
                 for (let i=0; i<countX; i++){
+
                     tex[i] = document.createElement('a-entity');
-                    cubes[i] = document.createElement('a-obj-model'); // create the element
-                    // create components, id, geometry, position
-                    cubes[i].setAttribute('id', 'box_'+i.toString());
-                    cubes[i].setAttribute('material', 'color', 'rgb(255, 255, 255)');
-                    cubes[i].setAttribute('src', 'https://cdn.glitch.global/9171c8b9-6b40-42db-8a06-008f51d40e80/%E7%A2%8E%E7%89%87.obj?v=1678363378653');
+                    cubes[i] = document.createElement('a-obj-model');
+
+                    //cube
+                    x = (Math.random()-0.5)*2;
+                    y = (Math.random()-0.5)*2;
+                    z = (Math.random()-0.5);
                     cubes[i].setAttribute('shadow', {
                         cast: true,
                         receive: true,
                     });
-                    
-
-
-                    x = (Math.random()-0.5)*2;
-                    y = (Math.random()-0.5)*2;
-                    z = (Math.random()-0.5);
+                    cubes[i].setAttribute('id', 'box_'+i.toString());
+                    cubes[i].setAttribute('material', 'color', 'rgb(255, 255, 255)');
+                    cubes[i].setAttribute('src', 'https://cdn.glitch.global/9171c8b9-6b40-42db-8a06-008f51d40e80/%E7%A2%8E%E7%89%87.obj?v=1678363378653');
                     cubes[i].setAttribute('scale','0.09 0.09 0.09');
                     cubes[i].setAttribute('position', x.toString()+ ' '+y.toString()+ ' '+z.toString());
                     cubes[i].setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
+                    
                     
                     //text
                     tex[i].setAttribute('text',{
                         value : text_array[i][0], 
                         align: 'center',
-
                     });
                     tex[i].setAttribute('scale','0.7 0.7 0.7');
                     tex[i].setAttribute('color', 'red');
                     tex[i].setAttribute('position', x.toString()+ ' '+(y+0.2).toString()+ ' '+(z).toString());
-                    tex[i].setAttribute('rotation', '0 0 0');
-                    
+                    let start = tex[i].getAttribute("position");
+                    let end = cubes[i].getAttribute("position");
+                    //tex[i].setAttribute('line', 'start: 0 -0.05 0; end: 0 -0.2 0; color: white');
+
                     //Event
 
                     //mouse click
                     cubes[i].addEventListener('click', function (evt) {
                         this.setAttribute('material', 'color: rgb(255, 255, 0');
-                        //location.href="http://127.0.0.1:5500/test01.html";
                     });
 
                     //mouse hover
                     cubes[i].addEventListener('mouseenter', function (evt) {
                         //Text.setAttribute('text','value', text_array[i]);
                         //this.setAttribute('scale', '1.5 1.5 1.5');
-                        this.setAttribute('material', 'color: rgb(255, 0, 0)');
-                        this.setAttribute('animation', 'property: scale; from: 0.07, 0.07, 0.07; to: 0.1, 0.1, 0.1; loop: false; dur: 500');
+                        this.setAttribute('material', 'color: rgb(150, 150, 255)');
+                        this.setAttribute('animation', 'property: scale; from: 0.07, 0.07, 0.07; to: 0.2, 0.2, 0.2; loop: false; dur: 500');
                     })
 
                     cubes[i].addEventListener('mouseleave', function (evt) {
-                        Text.setAttribute('text','value', "--");
+                        //Text.setAttribute('text','value', "--");
                         this.setAttribute('scale', '0.07, 0.07, 0.07');
                         this.setAttribute('material', 'color: rgb(255, 255, 255)');
                         this.setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
                     })
+                   
                     
                     
                     sceneEl.appendChild(tex[i]);
@@ -115,6 +117,7 @@
 					
                     
 					light="type: directional;
+                        
 						castShadow: true;
 						shadowCameraFar: 100;
 						intensity: 1;
@@ -149,6 +152,8 @@
                         font: monoid;
                         value: --"
                 ></a-entity>
+
+                
                 
 			</a-entity>
         
