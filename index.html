@@ -13,18 +13,12 @@
             height: 100vh;
             width: 100%;
         }
-        #text{
-            position: fixed;
-            top: 50%;
-            left: 50vh;
-            z-index: 1;
-        }
+       
     </style>
     <body>
-        <div id="text">hello</div>
         <a-scene embedded>
             <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
-            <a-sky material="shader: gradient; topColor: 255 220 150; bottomColor: 100 200 255;"></a-sky>
+            <a-sky id="sky" material="shader: gradient; topColor: 255 220 150; bottomColor: 100 200 255;"></a-sky>
 
             <a-entity 
                 light="

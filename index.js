@@ -23,15 +23,16 @@ AFRAME.registerComponent('cube-man', {
         let size = 0.125, x, y, z;
         let sceneEl = document.querySelector('#center');
         let Text = document.querySelector('#text');
+        let sky = document.querySelector('#sky');
         for (let i=0; i<countX; i++){
 
             tex[i] = document.createElement('a-entity');
             cubes[i] = document.createElement('a-obj-model');
-
+            
             //cube
             x = (Math.random()-0.5)*2;
             y = (Math.random()-0.5)*2;
-            z = (Math.random()-0.5);
+            z = (Math.random()-0.5)*0.5;
             cubes[i].setAttribute('shadow', {
                 cast: true,
                 receive: true,
@@ -51,10 +52,10 @@ AFRAME.registerComponent('cube-man', {
             tex[i].setAttribute('text',{
                 value : text_array[i][0], 
                 align: 'center',
+                color: 'rgb(110, 110, 150)',
             });
-            tex[i].setAttribute('scale','0.7 0.7 0.7');
-            tex[i].setAttribute('color', 'rgb(100, 100, 100)');
-            tex[i].setAttribute('position', x.toString()+ ' '+(y+0.2).toString()+ ' '+(z).toString());
+            tex[i].setAttribute('scale','0.9 0.9 0.9');
+            tex[i].setAttribute('position', x.toString()+ ' '+(y+0.2).toString()+ ' '+(z+0.05).toString());
             
             
             //child
@@ -85,27 +86,58 @@ AFRAME.registerComponent('cube-man', {
                 let r = this.getAttribute('rotation');
                 let s = this.getAttribute('scale');
                 go_to_project = true;
-                this.setAttribute('animation', 'property: position; from: '+p.x+', '+p.y+', '+p.z+'; '+' to: 0, 0, 0.5; loop: false; dur: 1500');
-                this.setAttribute('animation__2', 'property: scale; from: '+s.x+', '+s.y+', '+s.z+'; '+' to: 0.9, 0.9, 0.9; loop: false; dur: 1500');
+                this.setAttribute('animation', 'property: position; from: '+p.x+', '+p.y+', '+p.z+'; '+' to: 0, 0, 0.5; loop: false; dur: 500');
+                this.setAttribute('animation__2', 'property: scale; from: '+s.x+', '+s.y+', '+s.z+'; '+' to: 0.9, 0.9, 0.9; loop: false; dur: 500');
+                
             });
 
             //mouse hover
             cubes[i].addEventListener('mouseenter', function (evt) {
                 
                 if(! go_to_project){
-                    let r = this.getAttribute('rotation');
-                    this.setAttribute('material', 'color: rgb(255, 200, 150)');
-                    this.setAttribute('animation', 'property: scale; from: 0.1, 0.1, 0.1; to: 0.2, 0.2, 0.2; loop: false; dur: 100');
-                    this.setAttribute('animation__2', 'property: rotation; from: '+r.x+', '+r.y+', '+r.z+'; '+' to: 90, 0, 0; loop: false; dur: 800');
+
+                    for (let k=0; k<countX; k++){
+                        if(k == i){
+                            let r = this.getAttribute('rotation');
+                            cubes[k].setAttribute('material', 'color: rgb(255, 200, 150)');
+                            cubes[k].setAttribute('animation', 'property: scale; from: 0.1, 0.1, 0.1; to: 0.2, 0.2, 0.2; loop: false; dur: 600');
+                            cubes[k].setAttribute('animation__2', 'property: rotation; from: '+r.x+', '+r.y+', '+r.z+'; '+' to: 90, 0, 0; loop: false; dur: 0');
+
+                            let tp = tex[i].getAttribute('position');
+                            tex[k].setAttribute('position',tp.x+', '+(tp.y-0.2)+', '+tp.z+'; ');
+                            tex[k].setAttribute('text','value: '+text_array[i][0]+text_array[i][1]);
+                        }
+                        else{
+                            tex[k].setAttribute('text','value: ');
+                            cubes[k].setAttribute('material', 'color: rgb(80, 80, 80)');
+                        }
+                    }
+                    sky.setAttribute('material','topColor:235 200 130');
+                    sky.setAttribute('material','bottomColor: 80 180 235');
+                 
                 }
             })
 
             cubes[i].addEventListener('mouseleave', function (evt) {
                 if(! go_to_project){
-                    
-                    this.setAttribute('animation', 'property: scale; from: 0.2, 0.2, 0.2; to: 0.1, 0.1, 0.1; loop: false; dur: 100');
-                    this.setAttribute('material', 'color: rgb(150, 200, 255)');
-                    this.setAttribute('animation__2', 'property: rotation; from: 90 0 0; to: 360 -360 360; easing: linear; loop: true; dur: '+(Math.random()*10000+20000).toString());
+
+                    for (let k=0; k<countX; k++){
+                        if(k == i){
+                            cubes[k].setAttribute('animation', 'property: scale; from: 0.2, 0.2, 0.2; to: 0.1, 0.1, 0.1; loop: false; dur: 1000');
+                            cubes[k].setAttribute('material', 'color: rgb(150, 200, 255)');
+                            cubes[k].setAttribute('animation__2', 'property: rotation; from: 0 0 0; to: 360 -360 360; easing: linear; loop: true; dur: '+(Math.random()*10000+20000).toString());
+
+                            let tp = tex[i].getAttribute('position');
+                            tex[i].setAttribute('position',tp.x+', '+(tp.y+0.2)+', '+tp.z+'; ');
+                            tex[i].setAttribute('text','value: '+text_array[i][0]);
+                        }
+                        else{
+                            tex[k].setAttribute('text','value: '+text_array[k][0]);
+                            cubes[k].setAttribute('material', 'color: rgb(150, 200, 255)');
+                        }
+                    }
+                    sky.setAttribute('material','topColor:255 220 150');
+                    sky.setAttribute('material','bottomColor: 100 200 255');
                 }
             })
            
