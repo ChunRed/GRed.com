@@ -91,17 +91,19 @@ AFRAME.registerComponent('cube-man', {
                 // let p = this.getAttribute('position');
                 // let r = this.getAttribute('rotation');
                 // let s = this.getAttribute('scale');
-                // go_to_project = true;
+                //go_to_project = true;
                 // this.setAttribute('animation', 'property: position; from: '+p.x+', '+p.y+', '+p.z+'; '+' to: 0, 0, 0.5; loop: false; dur: 500');
                 // this.setAttribute('animation__2', 'property: scale; from: '+s.x+', '+s.y+', '+s.z+'; '+' to: 0.9, 0.9, 0.9; loop: false; dur: 500');
+                
                 world.style='z-index: -1';
+                $('#project').fadeIn('slow');
             });
 
             //mouse hover
             cubes[i].addEventListener('mouseenter', function (evt) {
                 
                 if(! go_to_project){
-
+                    $('#project').fadeOut('slow');
                     for (let k=0; k<countX; k++){
                         if(k == i){
                             let r = this.getAttribute('rotation');
@@ -162,6 +164,10 @@ AFRAME.registerComponent('cube-man', {
 });
 
 
-function myFunction() {
-    world.style='z-index: 1';
-}
+$(document).ready(function() {
+    $('#return').click(function() {
+        $('#project').fadeOut('slow', function() {
+            world.style='z-index: 1';
+        })
+    });
+});
