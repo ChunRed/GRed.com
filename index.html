@@ -4,6 +4,7 @@
         <title>GRed Test</title>
         <script src="index.js"></script>
         <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+        <script src="https://cdn.rawgit.com/zcanter/aframe-gradient-sky/master/dist/gradientsky.min.js"></script>
     </head>
 
 
@@ -47,7 +48,7 @@
                         receive: true,
                     });
                     cubes[i].setAttribute('id', 'box_'+i.toString());
-                    cubes[i].setAttribute('material', 'color', 'rgb(150, 150, 255)');
+                    cubes[i].setAttribute('material', 'color', 'rgb(150, 200, 255)');
                     cubes[i].setAttribute('src', 'https://cdn.glitch.global/9171c8b9-6b40-42db-8a06-008f51d40e80/%E7%A2%8E%E7%89%87.obj?v=1678363378653');
                     cubes[i].setAttribute('scale','0.1 0.1 0.1');
                     cubes[i].setAttribute('position', x.toString()+ ' '+y.toString()+ ' '+z.toString());
@@ -76,7 +77,8 @@
                         let sx = ((Math.random()-0.5)*0.5).toString();
                         let sy = ((Math.random()-0.5)*0.5).toString();
                         let sz = ((Math.random()-0.5)*0.5).toString();
-                        child[j] = document.createElement('a-box');
+                        child[j] = document.createElement('a-obj-model');
+                        child[j].setAttribute('src', 'https://cdn.glitch.global/9171c8b9-6b40-42db-8a06-008f51d40e80/%E7%A2%8E%E7%89%87.obj?v=1678363378653');
                         child[j].setAttribute('position',x +' '+ y +' '+ z);
                         child[j].setAttribute('scale',sx +' '+ sy +' '+ sz);
                         child[j].setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
@@ -95,14 +97,14 @@
                     cubes[i].addEventListener('mouseenter', function (evt) {
                         //Text.setAttribute('text','value', text_array[i]);
                         //this.setAttribute('scale', '1.5 1.5 1.5');
-                        this.setAttribute('material', 'color: rgb(100, 100, 255)');
+                        this.setAttribute('material', 'color: rgb(255, 200, 150)');
                         this.setAttribute('animation', 'property: scale; from: 0.1, 0.1, 0.1; to: 0.2, 0.2, 0.2; loop: false; dur: 500');
                     })
 
                     cubes[i].addEventListener('mouseleave', function (evt) {
                         //Text.setAttribute('text','value', "--");
                         this.setAttribute('scale', '0.1, 0.1, 0.1');
-                        this.setAttribute('material', 'color: rgb(150, 150, 255)');
+                        this.setAttribute('material', 'color: rgb(150, 200, 255)');
                         this.setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
                     })
                    
@@ -121,7 +123,8 @@
         <a-scene>
             <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
 			
-            <a-sky color="rgb(255,255,255)"></a-sky>
+            <!-- <a-sky color="rgb(255,255,255)"></a-sky> -->
+            <a-sky material="shader: gradient; topColor: 255 220 150; bottomColor: 100 200 255;"></a-sky>
 
             <a-entity 
                 light="
@@ -138,7 +141,7 @@
                         
 						castShadow: true;
 						shadowCameraFar: 100;
-						intensity: 1;
+						intensity: 1.5;
 						shadowCameraVisible: false;
 						shadowBias: -0.001;
 						shadowMapHeight:6000; 
