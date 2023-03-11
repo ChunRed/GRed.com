@@ -41,7 +41,7 @@ AFRAME.registerComponent('cube-man', {
             cubes[i].setAttribute('src', 'https://cdn.glitch.global/9171c8b9-6b40-42db-8a06-008f51d40e80/%E7%A2%8E%E7%89%87.obj?v=1678363378653');
             cubes[i].setAttribute('scale','0.1 0.1 0.1');
             cubes[i].setAttribute('position', x.toString()+ ' '+y.toString()+ ' '+z.toString());
-            cubes[i].setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; easing: linear; loop: true; dur: '+(Math.random()*5000+5000).toString());
+            cubes[i].setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; easing: linear; loop: true; dur: '+(Math.random()*10000+20000).toString());
             cubes[i].setAttribute('roughness','0');
             cubes[i].setAttribute('reflectivity','0.8');
             cubes[i].setAttribute('shininess','30');
@@ -59,7 +59,7 @@ AFRAME.registerComponent('cube-man', {
             
             //child
             let child = [];
-            for (let j=0; j<3; j++){
+            for (let j=0; j<2; j++){
                 let x = ((Math.random()-0.5)*8).toString();
                 let y = ((Math.random()-0.5)*8).toString();
                 let z = ((Math.random()-0.5)*4).toString();
@@ -95,7 +95,7 @@ AFRAME.registerComponent('cube-man', {
                 if(! go_to_project){
                     let r = this.getAttribute('rotation');
                     this.setAttribute('material', 'color: rgb(255, 200, 150)');
-                    this.setAttribute('animation', 'property: scale; from: 0.1, 0.1, 0.1; to: 0.2, 0.2, 0.2; loop: false; dur: 500');
+                    this.setAttribute('animation', 'property: scale; from: 0.1, 0.1, 0.1; to: 0.2, 0.2, 0.2; loop: false; dur: 100');
                     this.setAttribute('animation__2', 'property: rotation; from: '+r.x+', '+r.y+', '+r.z+'; '+' to: 90, 0, 0; loop: false; dur: 800');
                 }
             })
@@ -103,9 +103,9 @@ AFRAME.registerComponent('cube-man', {
             cubes[i].addEventListener('mouseleave', function (evt) {
                 if(! go_to_project){
                     
-                    this.setAttribute('animation', 'property: scale; from: 0.2, 0.2, 0.2; to: 0.1, 0.1, 0.1; loop: false; dur: 500');
+                    this.setAttribute('animation', 'property: scale; from: 0.2, 0.2, 0.2; to: 0.1, 0.1, 0.1; loop: false; dur: 100');
                     this.setAttribute('material', 'color: rgb(150, 200, 255)');
-                    this.setAttribute('animation__2', 'property: rotation; from: 90 0 0; to: 360 -360 360; easing: linear; loop: true; dur: '+(Math.random()*5000+5000).toString());
+                    this.setAttribute('animation__2', 'property: rotation; from: 90 0 0; to: 360 -360 360; easing: linear; loop: true; dur: '+(Math.random()*10000+20000).toString());
                 }
             })
            
