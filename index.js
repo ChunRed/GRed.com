@@ -41,7 +41,7 @@ AFRAME.registerComponent('cube-man', {
             cubes[i].setAttribute('src', 'https://cdn.glitch.global/9171c8b9-6b40-42db-8a06-008f51d40e80/%E7%A2%8E%E7%89%87.obj?v=1678363378653');
             cubes[i].setAttribute('scale','0.1 0.1 0.1');
             cubes[i].setAttribute('position', x.toString()+ ' '+y.toString()+ ' '+z.toString());
-            cubes[i].setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
+            cubes[i].setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; easing: linear; loop: true; dur: '+(Math.random()*5000+5000).toString());
             cubes[i].setAttribute('roughness','0');
             cubes[i].setAttribute('reflectivity','0.8');
             cubes[i].setAttribute('shininess','30');
@@ -78,6 +78,7 @@ AFRAME.registerComponent('cube-man', {
             //Event
 
             //mouse click
+            
             cubes[i].addEventListener('click', function (evt) {
                 this.setAttribute('color','rgb(0, 0, 0)');
                 let p = this.getAttribute('position');
@@ -85,24 +86,26 @@ AFRAME.registerComponent('cube-man', {
                 let s = this.getAttribute('scale');
                 go_to_project = true;
                 this.setAttribute('animation', 'property: position; from: '+p.x+', '+p.y+', '+p.z+'; '+' to: 0, 0, 0.5; loop: false; dur: 1500');
-                this.setAttribute('animation__2', 'property: rotation; from: '+r.x+', '+r.y+', '+r.z+'; '+' to: 90, 0, 0; loop: false; dur: 1500');
-                this.setAttribute('animation__3', 'property: scale; from: '+s.x+', '+s.y+', '+s.z+'; '+' to: 0.9, 0.9, 0.9; loop: false; dur: 1500');
+                this.setAttribute('animation__2', 'property: scale; from: '+s.x+', '+s.y+', '+s.z+'; '+' to: 0.9, 0.9, 0.9; loop: false; dur: 1500');
             });
 
             //mouse hover
             cubes[i].addEventListener('mouseenter', function (evt) {
                 
                 if(! go_to_project){
+                    let r = this.getAttribute('rotation');
                     this.setAttribute('material', 'color: rgb(255, 200, 150)');
                     this.setAttribute('animation', 'property: scale; from: 0.1, 0.1, 0.1; to: 0.2, 0.2, 0.2; loop: false; dur: 500');
+                    this.setAttribute('animation__2', 'property: rotation; from: '+r.x+', '+r.y+', '+r.z+'; '+' to: 90, 0, 0; loop: false; dur: 800');
                 }
             })
 
             cubes[i].addEventListener('mouseleave', function (evt) {
                 if(! go_to_project){
-                    this.setAttribute('scale', '0.1, 0.1, 0.1');
+                    
+                    this.setAttribute('animation', 'property: scale; from: 0.2, 0.2, 0.2; to: 0.1, 0.1, 0.1; loop: false; dur: 500');
                     this.setAttribute('material', 'color: rgb(150, 200, 255)');
-                    this.setAttribute('animation', 'property: rotation; from: 0 0 0; to: 360 -360 360; loop: true; dur: '+(Math.random()*5000+5000).toString());
+                    this.setAttribute('animation__2', 'property: rotation; from: 90 0 0; to: 360 -360 360; easing: linear; loop: true; dur: '+(Math.random()*5000+5000).toString());
                 }
             })
            
