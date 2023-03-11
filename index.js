@@ -1,3 +1,5 @@
+
+
 AFRAME.registerComponent('cube-man', {
     init: function(){
         
@@ -24,6 +26,9 @@ AFRAME.registerComponent('cube-man', {
         let sceneEl = document.querySelector('#center');
         let Text = document.querySelector('#text');
         let sky = document.querySelector('#sky');
+        let world = document.querySelector('#world');
+        let Return = document.querySelector('#retuen');
+        
         for (let i=0; i<countX; i++){
 
             tex[i] = document.createElement('a-entity');
@@ -52,7 +57,7 @@ AFRAME.registerComponent('cube-man', {
             tex[i].setAttribute('text',{
                 value : text_array[i][0], 
                 align: 'center',
-                color: 'rgb(110, 110, 150)',
+                color: 'rgb(255, 255, 255)',
             });
             tex[i].setAttribute('scale','0.9 0.9 0.9');
             tex[i].setAttribute('position', x.toString()+ ' '+(y+0.2).toString()+ ' '+(z+0.05).toString());
@@ -79,16 +84,17 @@ AFRAME.registerComponent('cube-man', {
             //Event
 
             //mouse click
+
             
             cubes[i].addEventListener('click', function (evt) {
-                this.setAttribute('color','rgb(0, 0, 0)');
-                let p = this.getAttribute('position');
-                let r = this.getAttribute('rotation');
-                let s = this.getAttribute('scale');
-                go_to_project = true;
-                this.setAttribute('animation', 'property: position; from: '+p.x+', '+p.y+', '+p.z+'; '+' to: 0, 0, 0.5; loop: false; dur: 500');
-                this.setAttribute('animation__2', 'property: scale; from: '+s.x+', '+s.y+', '+s.z+'; '+' to: 0.9, 0.9, 0.9; loop: false; dur: 500');
-                
+                // this.setAttribute('color','rgb(0, 0, 0)');
+                // let p = this.getAttribute('position');
+                // let r = this.getAttribute('rotation');
+                // let s = this.getAttribute('scale');
+                // go_to_project = true;
+                // this.setAttribute('animation', 'property: position; from: '+p.x+', '+p.y+', '+p.z+'; '+' to: 0, 0, 0.5; loop: false; dur: 500');
+                // this.setAttribute('animation__2', 'property: scale; from: '+s.x+', '+s.y+', '+s.z+'; '+' to: 0.9, 0.9, 0.9; loop: false; dur: 500');
+                world.style='z-index: -1';
             });
 
             //mouse hover
@@ -105,7 +111,7 @@ AFRAME.registerComponent('cube-man', {
 
                             let tp = tex[i].getAttribute('position');
                             tex[k].setAttribute('position',tp.x+', '+(tp.y-0.2)+', '+tp.z+'; ');
-                            tex[k].setAttribute('text','value: '+text_array[i][0]+text_array[i][1]);
+                            tex[k].setAttribute('text','value: '+text_array[i][0]+text_array[i][1]+'; color:rgb(170, 170, 170)');
                         }
                         else{
                             
@@ -131,7 +137,7 @@ AFRAME.registerComponent('cube-man', {
 
                             let tp = tex[i].getAttribute('position');
                             tex[i].setAttribute('position',tp.x+', '+(tp.y+0.2)+', '+tp.z+'; ');
-                            tex[i].setAttribute('text','value: '+text_array[i][0]);
+                            tex[i].setAttribute('text','value: '+text_array[i][0]+'; color:rgb(255, 255, 255)');
                         }
                         else{
                             tex[k].setAttribute('text','value: '+text_array[k][0]);
@@ -144,13 +150,18 @@ AFRAME.registerComponent('cube-man', {
                     // sky.setAttribute('material','bottomColor: 100 200 255');
                 }
             })
-           
             
             
             sceneEl.appendChild(tex[i]);
             sceneEl.appendChild(cubes[i]);// Append the element to the scene, so it becomes part of the DOM.
         }
         
-        
     }
+    
+    
 });
+
+
+function myFunction() {
+    world.style='z-index: 1';
+}
